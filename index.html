@@ -58,6 +58,9 @@
             margin-bottom: 30px;
             line-height: 1.5;
             color: var(--dark-color);
+            white-space: normal;
+            word-wrap: break-word;
+            word-break: normal;
         }
         
         .btn-container {
@@ -81,6 +84,9 @@
             position: relative;
             overflow: hidden;
             z-index: 1;
+            white-space: normal;
+            word-wrap: break-word;
+            word-break: normal;
         }
         
         .btn:active {
@@ -140,6 +146,9 @@
             border-left: 4px solid var(--success-color);
             display: none;
             animation: fadeIn 0.5s ease;
+            white-space: normal;
+            word-wrap: break-word;
+            word-break: normal;
         }
         
         .final-result {
@@ -272,7 +281,7 @@
             },
             {
                 level: 2,
-                question: "你覺得自己有多大年紀？",
+                question: "你覺得自己心靈年紀多大？",
                 options: [
                     { text: "10歲", result: "你還是個永遠保持活力的小孩！當然，人生的目標就是玩樂！" },
                     { text: "30歲", result: "你是成熟又理性的人，但有時也需要放下壓力，去吃一塊蛋糕！" },
@@ -283,7 +292,7 @@
                 level: 3,
                 question: "如果你能選擇理想的假期，你會選擇去哪裡？",
                 options: [
-                    { text: "海灘上放鬆", result: "你選擇海灘，是時候放鬆了，讓海風告訴你'放下'。" },
+                    { text: "海邊放鬆", result: "你選擇海邊，是時候放鬆了，讓海風告訴你'放下'。" },
                     { text: "雪山滑雪", result: "你選擇了雪山，勇敢的挑戰自己！但是注意別摔倒！" },
                     { text: "家裡放鬆", result: "你選擇了在家放鬆，這就是生活的真諦！終於不需要再面對行李！" }
                 ]
@@ -310,9 +319,17 @@
                 level: 6,
                 question: "如果你擁有一個超能力，你會選擇哪一個？",
                 options: [
-                    { text: "心靈感應", result: "你能讀懂他人心思！但這樣也有點累人吧？" },
-                    { text: "時間倒流", result: "倒流時間可以改變過去，但你不能改變已經發生的事。" },
-                    { text: "讓所有人安靜", result: "你想要安靜的世界，但或許那樣會讓你錯過很多笑聲！" }
+                    { text: "瞬間移動 🚀", result: "你討厭等待，總想快點達成目標，但別忘了過程才是重點。" },
+                    { text: "時間暫停 ⏳", result: "你渴望掌控時間，但真正重要的是如何利用它。" },
+                    { text: "讀心術 🧠", result: "你害怕被騙，卻可能發現太多不想知道的事。" }
+                    { text: "隱形能力 👻", result: "你有時想躲起來，但其實你的存在很重要。" },
+                    { text: "預知未來 🔮", result: "你想掌握一切，但未知才讓人生有趣。" },
+                    { text: "超級力量 💪", result: "你渴望強大，但真正的力量來自內心。" }
+                    { text: "操控元素 🌊🔥🍃", result: "你熱愛影響世界，但記得先控制好自己。" },
+                    { text: "不死之身 🏹", result: "你害怕失去，但有限的生命才珍貴。" },
+                    { text: "變身成任何人 🎭", result: "你羨慕別人，但其實你已經很獨特了。" }
+
+
                 ]
             },
             {
@@ -320,7 +337,7 @@
                 question: "如果你有一個秘密力量，你會選擇哪一個？",
                 options: [
                     { text: "說話能讓所有人發笑", result: "你的秘密力量能讓每個人都開心，但有時候你自己也會笑到不行！" },
-                    { text: "瞬間移動", result: "瞬間移動讓你隨時逃避，卻可能會錯過一些意外的樂趣。" },
+                    { text: "超級智慧", result: "你愛學習，但別被知識壓垮，偶爾放空一下。" },
                     { text: "變成透明", result: "透明無聲，讓你無法被察覺，但或許你也會變得有點孤獨。" }
                 ]
             },
@@ -442,16 +459,28 @@
         ];
         
         function moveExitButton() {
-            const maxX = window.innerWidth - exitBtn.offsetWidth - 40;
-            const maxY = window.innerHeight - exitBtn.offsetHeight - 40;
+            // 獲取可見視窗的寬度和高度
+            const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+            const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
             
-            const randomX = Math.floor(Math.random() * maxX);
-            const randomY = Math.floor(Math.random() * maxY);
+            // 計算可移動的範圍 (保持按鈕完全在視窗內)
+            const buttonWidth = exitBtn.offsetWidth;
+            const buttonHeight = exitBtn.offsetHeight;
+            const maxX = viewportWidth - buttonWidth;
+            const maxY = viewportHeight - buttonHeight;
             
+            // 生成隨機位置
+            const randomX = Math.max(0, Math.floor(Math.random() * maxX));
+            const randomY = Math.max(0, Math.floor(Math.random() * maxY));
+            
+            // 將按鈕設為固定位置
             exitBtn.style.position = 'fixed';
             exitBtn.style.left = randomX + 'px';
             exitBtn.style.top = randomY + 'px';
             exitBtn.style.zIndex = '9999';
+            
+            // 確保按鈕仍然在頁面上
+            document.body.appendChild(exitBtn);
         }
         
         function nextLevel(option) {
@@ -459,9 +488,15 @@
             if (currentLevel === 1 && option === 'start') {
                 currentLevel++;
                 updateQuestion();
-                // 移除退出按鈕
+                // 僅在第二層開始時將退出按鈕移到選項容器內，而不是移除它
                 if (document.getElementById('exit-btn')) {
-                    document.getElementById('exit-btn').remove();
+                    // 將退出按鈕重置為正常位置
+                    exitBtn.style.position = '';
+                    exitBtn.style.left = '';
+                    exitBtn.style.top = '';
+                    exitBtn.style.zIndex = '';
+                    // 隱藏退出按鈕，但不要移除它
+                    exitBtn.style.display = 'none';
                 }
                 return;
             }
