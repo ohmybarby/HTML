@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>劉罄豪的心理測驗</title>
   <style>
-    /* 重設與基礎樣式 */
+    /* 基本重設 */
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
-      background: linear-gradient(135deg, #f6d365, #fda085);
+      background: radial-gradient(circle at top left, #f6d365, #fda085);
       color: #333;
       display: flex;
       justify-content: center;
@@ -22,63 +22,66 @@
       padding: 20px;
     }
     .container {
-      background: rgba(255, 255, 255, 0.95);
+      background: rgba(255, 255, 255, 0.97);
       border: 2px solid #f39c12;
       border-radius: 16px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
       width: 100%;
-      max-width: 400px;
-      padding: 20px;
+      max-width: 420px;
+      padding: 24px;
       text-align: center;
+      position: relative;
+      overflow: hidden;
     }
     h1 {
-      margin-bottom: 16px;
-      font-size: 1.6em;
+      margin-bottom: 20px;
+      font-size: 1.8em;
       color: #e67e22;
     }
     p {
       margin-bottom: 20px;
-      font-size: 1em;
-      line-height: 1.5;
+      font-size: 1.1em;
+      line-height: 1.6;
       white-space: pre-wrap;
     }
     .options {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 16px;
     }
+    /* 按鈕樣式 */
     button.option {
-      background: #e67e22;
+      background: linear-gradient(145deg, #e67e22, #d35400);
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
       color: #fff;
-      padding: 12px 16px;
+      padding: 14px 20px;
       font-size: 1em;
       cursor: pointer;
       transition: transform 0.1s, box-shadow 0.1s, background 0.3s;
-      /* 文字自動換行控制 */
       text-align: center;
-      overflow-wrap: break-word;
+      word-wrap: break-word;
+      /* 立體效果 */
+      box-shadow: 0 5px 10px rgba(0,0,0,0.2);
     }
     button.option:hover {
-      background: #d35400;
+      background: linear-gradient(145deg, #d35400, #e67e22);
     }
     button.option:active {
-      transform: scale(0.97);
+      transform: scale(0.96);
       box-shadow: 0 2px 6px rgba(0,0,0,0.3);
     }
-    /* 為第一層「退出」按鈕增加逃跑效果與加大尺寸 */
+    /* 特殊的首頁退出鍵 */
     button.exit {
+      font-size: 1.3em;
+      padding: 18px 24px;
       position: relative;
-      font-size: 1.2em;
-      padding: 16px 20px;
     }
-    /* 「下一步」按鈕 */
+    /* 下一步按鈕 */
     button.next {
-      margin-top: 20px;
-      background: #27ae60;
+      background: linear-gradient(145deg, #27ae60, #1e8449);
     }
-    /* 第20層註解樣式 */
+    /* 註解樣式 */
     .annotation {
       font-size: 0.8em;
       color: #555;
@@ -89,22 +92,22 @@
 </head>
 <body>
   <div class="container" id="app">
-    <!-- 內容將由 JavaScript 動態注入 -->
+    <!-- 內容由 JS 動態產生 -->
   </div>
-
+  
   <script>
-    // 定義 20 層的測驗內容
+    // 定義20層的心理測驗內容
     const layers = [
-      // 層 1：歡迎頁面（含「退出」按鈕逃跑效果）
+      // 層 1：歡迎頁面，含「退出」按鈕（特殊效果）
       {
         question: "準備好進行這個有趣的心理測驗了嗎？但…你可以選擇退出哦！",
         options: [
           { text: "開始測驗", response: "太好了！讓我們開始吧！" },
           { text: "退出", response: "你真的要退出？" }
         ],
-        special: "escapeExit" // 特殊處理「退出」按鈕
+        special: "escapeExit"
       },
-      // 層 2：心理年齡
+      // 層 2
       {
         question: "你覺得自己有多大年紀？",
         options: [
@@ -113,7 +116,7 @@
           { text: "100歲", response: "你是一位智慧的長者，充滿深刻見解！" }
         ]
       },
-      // 層 3：理想假期
+      // 層 3
       {
         question: "如果你能選擇理想的假期，你會選擇去哪裡？",
         options: [
@@ -122,7 +125,7 @@
           { text: "家裡放鬆", response: "在家最舒適，行李不用煩惱！" }
         ]
       },
-      // 層 4：面對恐懼
+      // 層 4
       {
         question: "如果你必須面對一個恐懼，你會選擇什麼？",
         options: [
@@ -131,7 +134,7 @@
           { text: "無聊的等待", response: "無聊也有其樂趣，發呆也是一種藝術！" }
         ]
       },
-      // 層 5：心情色彩
+      // 層 5
       {
         question: "你今天的心情是哪種顏色？",
         options: [
@@ -140,7 +143,7 @@
           { text: "綠色", response: "充滿希望，像春天般生機盎然！" }
         ]
       },
-      // 層 6：超能力選擇
+      // 層 6
       {
         question: "如果你擁有一個超能力，你會選擇哪一個？",
         options: [
@@ -149,7 +152,7 @@
           { text: "讓所有人安靜", response: "安靜的世界也許會錯過許多笑聲！" }
         ]
       },
-      // 層 7：秘密力量
+      // 層 7
       {
         question: "如果你有一個秘密力量，你會選擇哪一個？",
         options: [
@@ -158,7 +161,7 @@
           { text: "變成透明", response: "隱形的世界有時候會讓你覺得孤單。" }
         ]
       },
-      // 層 8：生活方式
+      // 層 8
       {
         question: "你最想要的生活方式是？",
         options: [
@@ -167,7 +170,7 @@
           { text: "終於能在家睡覺", response: "宅在家裡，睡覺就是最好的放鬆！" }
         ]
       },
-      // 層 9：最愛食物
+      // 層 9
       {
         question: "你最喜歡的食物是？",
         options: [
@@ -176,7 +179,7 @@
           { text: "蔬菜", response: "你的選擇是蔬菜，顯示出你對健康的熱愛！" }
         ]
       },
-      // 層 10：未來的你
+      // 層 10
       {
         question: "你希望未來的自己是怎樣的？",
         options: [
@@ -185,7 +188,7 @@
           { text: "無憂無慮", response: "簡單快樂才是生活的真諦！" }
         ]
       },
-      // 層 11：消除恐懼
+      // 層 11
       {
         question: "如果你可以消除一個恐懼，你會選擇哪一個？",
         options: [
@@ -194,7 +197,7 @@
           { text: "害怕改變", response: "改變讓你成長，勇敢面對吧！" }
         ]
       },
-      // 層 12：面對無盡恐懼
+      // 層 12
       {
         question: "如果你面對無盡的恐懼，你會如何反應？",
         options: [
@@ -203,7 +206,7 @@
           { text: "接受並放下", response: "放下執著，你的心靈會因此變得更輕盈！" }
         ]
       },
-      // 層 13：理想朋友
+      // 層 13
       {
         question: "你的理想朋友是什麼樣的？",
         options: [
@@ -212,7 +215,7 @@
           { text: "穩重可靠", response: "穩重的朋友是你堅實的後盾！" }
         ]
       },
-      // 層 14：理想職業
+      // 層 14
       {
         question: "如果你可以選擇一個職業，你會選擇什麼？",
         options: [
@@ -221,7 +224,7 @@
           { text: "科學家", response: "探索未知是你永不熄滅的熱情！" }
         ]
       },
-      // 層 15：最佳優勢
+      // 層 15
       {
         question: "你認為自己最強的優勢是什麼？",
         options: [
@@ -230,7 +233,7 @@
           { text: "毅力", response: "堅持到底讓你永不言敗！" }
         ]
       },
-      // 層 16：自我認知
+      // 層 16
       {
         question: "你覺得自己是怎樣的人？",
         options: [
@@ -239,7 +242,7 @@
           { text: "隨和自在", response: "你隨遇而安，生活總是輕鬆自在！" }
         ]
       },
-      // 層 17：應對壓力
+      // 層 17
       {
         question: "當壓力來臨時，你會怎麼應對？",
         options: [
@@ -248,7 +251,7 @@
           { text: "逃避", response: "偶爾逃避也是一種調適，但記得最終要面對！" }
         ]
       },
-      // 層 18：幸福來源
+      // 層 18
       {
         question: "你認為自己的幸福來自於什麼？",
         options: [
@@ -257,7 +260,7 @@
           { text: "自由", response: "無拘無束的生活讓你心靈飛翔！" }
         ]
       },
-      // 層 19：完美週末
+      // 層 19
       {
         question: "你認為一個完美的週末應該是怎樣的？",
         options: [
@@ -281,33 +284,33 @@
     let currentLayer = 0;
     const app = document.getElementById("app");
 
-    // 渲染當前層的內容
+    // 渲染當前層內容
     function renderLayer(index) {
       const layer = layers[index];
       app.innerHTML = ""; // 清空容器
 
-      // 顯示問題
+      // 建立問題標題
       const questionEl = document.createElement("h1");
       questionEl.textContent = layer.question;
       app.appendChild(questionEl);
 
-      // 建立選項按鈕
+      // 建立選項容器
       const optionsContainer = document.createElement("div");
       optionsContainer.className = "options";
 
-      layer.options.forEach((option, i) => {
+      layer.options.forEach(option => {
         const btn = document.createElement("button");
         btn.className = "option";
         btn.textContent = option.text;
         btn.addEventListener("click", () => handleOption(option));
         optionsContainer.appendChild(btn);
 
-        // 如果是第一層且按鈕文字為「退出」，則加入特殊的逃跑效果與擴大效果
+        // 如果是第一層且是「退出」按鈕，加入特殊效果
         if (index === 0 && option.text === "退出") {
           btn.classList.add("exit");
           btn.addEventListener("mouseover", () => {
             const containerRect = app.getBoundingClientRect();
-            // 允許上下左右移動：X與Y皆用全範圍
+            // 隨機移動：X與Y皆使用全範圍，允許向上、下、左、右
             const randomX = Math.random() * (containerRect.width - btn.offsetWidth);
             const randomY = Math.random() * (containerRect.height - btn.offsetHeight);
             btn.style.position = "absolute";
@@ -320,16 +323,14 @@
       app.appendChild(optionsContainer);
     }
 
-    // 處理點擊選項後的邏輯
+    // 處理點擊選項邏輯
     function handleOption(option) {
-      // 顯示該選項的回應文字
       app.innerHTML = "";
       const responseEl = document.createElement("p");
       responseEl.style.marginBottom = "20px";
       responseEl.innerHTML = option.response;
       app.appendChild(responseEl);
 
-      // 建立下一步按鈕，無論當前層選項皆會進入下一層
       const nextBtn = document.createElement("button");
       nextBtn.className = "option next";
       nextBtn.textContent = "下一步";
