@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>劉罄豪的心理測驗</title>
+  <style>
+    /* 重設與基礎樣式 */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+      background: linear-gradient(135deg, #ffecd2, #fcb69f);
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      width: 100%;
+      max-width: 400px;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 16px;
+      font-size: 1.5em;
+      color: #e67e22;
+    }
+    p {
+      margin-bottom: 20px;
+      font-size: 1em;
+      line-height: 1.5;
+      white-space: pre-wrap;
+    }
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    button.option {
+      background: #e67e22;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      padding: 12px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button.option:hover {
+      background: #d35400;
+    }
+    /* 為第一層「退出」按鈕增加逃跑效果 */
+    button.exit {
+      position: relative;
+    }
+    /* 「下一步」按鈕 */
+    button.next {
+      margin-top: 20px;
+      background: #27ae60;
+    }
+    /* 第20層註解樣式 */
+    .annotation {
+      font-size: 0.8em;
+      color: #555;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="app">
+    <!-- 內容將由 JavaScript 動態注入 -->
+  </div>
+
+  <script>
+    // 定義 20 層的測驗內容
+    const layers = [
+      // 層 1：歡迎頁面（含「退出」按鈕逃跑效果）
+      {
+        question: "準備好進行這個有趣的心理測驗了嗎？但…你可以選擇退出哦！",
+        options: [
+          { text: "開始測驗", response: "太好了！讓我們開始吧！" },
+          { text: "退出", response: "你真的要退出？" }
+        ],
+        special: "escapeExit" // 特殊處理「退出」按鈕
+      },
+      // 層 2：心理年齡
+      {
+        question: "你覺得自己有多大年紀？",
+        options: [
+          { text: "10歲", response: "你還是個永遠保持活力的小孩！人生就是要玩樂！" },
+          { text: "30歲", response: "你是成熟又理性的人，但偶爾也要放下壓力，吃塊蛋糕！" },
+          { text: "100歲", response: "你是一位智慧的長者，充滿深刻見解！" }
+        ]
+      },
+      // 層 3：理想假期
+      {
+        question: "如果你能選擇理想的假期，你會選擇去哪裡？",
+        options: [
+          { text: "海灘上放鬆", response: "海風輕拂，是放下所有煩惱的好時光！" },
+          { text: "雪山滑雪", response: "挑戰自我，但記得小心別摔倒哦！" },
+          { text: "家裡放鬆", response: "在家最舒適，行李不用煩惱！" }
+        ]
+      },
+      // 層 4：面對恐懼
+      {
+        question: "如果你必須面對一個恐懼，你會選擇什麼？",
+        options: [
+          { text: "黑暗", response: "黑暗中總有亮光等待你發現！" },
+          { text: "高空", response: "高空自由飛翔，恐懼反而變成刺激！" },
+          { text: "無聊的等待", response: "無聊也有其樂趣，發呆也是一種藝術！" }
+        ]
+      },
+      // 層 5：心情色彩
+      {
+        question: "你今天的心情是哪種顏色？",
+        options: [
+          { text: "紅色", response: "火熱的心情，充滿無限活力！" },
+          { text: "藍色", response: "冷靜深邃，像無邊的海洋！" },
+          { text: "綠色", response: "充滿希望，像春天般生機盎然！" }
+        ]
+      },
+      // 層 6：超能力選擇
+      {
+        question: "如果你擁有一個超能力，你會選擇哪一個？",
+        options: [
+          { text: "心靈感應", response: "讀心術固然強大，但也可能太累！" },
+          { text: "時間倒流", response: "倒流時光，回到美好過去！" },
+          { text: "讓所有人安靜", response: "安靜的世界也許會錯過許多笑聲！" }
+        ]
+      },
+      // 層 7：秘密力量
+      {
+        question: "如果你有一個秘密力量，你會選擇哪一個？",
+        options: [
+          { text: "說話能讓所有人發笑", response: "笑聲是最好的藥，連你自己也會忍不住大笑！" },
+          { text: "瞬間移動", response: "隨時出現，卻也可能錯過路邊的風景！" },
+          { text: "變成透明", response: "隱形的世界有時候會讓你覺得孤單。" }
+        ]
+      },
+      // 層 8：生活方式
+      {
+        question: "你最想要的生活方式是？",
+        options: [
+          { text: "安靜的田園生活", response: "大自然的懷抱總是令人心動！" },
+          { text: "熙熙攘攘的都市生活", response: "都市的繁華帶來無限刺激！" },
+          { text: "終於能在家睡覺", response: "宅在家裡，睡覺就是最好的放鬆！" }
+        ]
+      },
+      // 層 9：最愛食物
+      {
+        question: "你最喜歡的食物是？",
+        options: [
+          { text: "披薩", response: "披薩讓人心滿意足，但別忘了健康飲食！" },
+          { text: "冰淇淋", response: "甜蜜的冰淇淋，融化所有煩惱！" },
+          { text: "蔬菜", response: "你的選擇是蔬菜，顯示出你對健康的熱愛！" }
+        ]
+      },
+      // 層 10：未來的你
+      {
+        question: "你希望未來的自己是怎樣的？",
+        options: [
+          { text: "事業成功", response: "事業有成固然重要，但放鬆也不可或缺！" },
+          { text: "幸福家庭", response: "家庭的溫暖是你永遠的依靠！" },
+          { text: "無憂無慮", response: "簡單快樂才是生活的真諦！" }
+        ]
+      },
+      // 層 11：消除恐懼
+      {
+        question: "如果你可以消除一個恐懼，你會選擇哪一個？",
+        options: [
+          { text: "害怕失敗", response: "沒有失敗的恐懼，成功也會隨之而來！" },
+          { text: "害怕孤單", response: "即使孤單，你也能發現自己的力量！" },
+          { text: "害怕改變", response: "改變讓你成長，勇敢面對吧！" }
+        ]
+      },
+      // 層 12：面對無盡恐懼
+      {
+        question: "如果你面對無盡的恐懼，你會如何反應？",
+        options: [
+          { text: "面對並克服", response: "你的勇氣將帶領你突破重圍！" },
+          { text: "逃避", response: "有時候逃避也能給你喘息的空間，但記得總要面對！" },
+          { text: "接受並放下", response: "放下執著，你的心靈會因此變得更輕盈！" }
+        ]
+      },
+      // 層 13：理想朋友
+      {
+        question: "你的理想朋友是什麼樣的？",
+        options: [
+          { text: "善解人意", response: "善解人意的朋友能撫平你的心靈創傷！" },
+          { text: "幽默風趣", response: "幽默的朋友讓生活充滿歡笑！" },
+          { text: "穩重可靠", response: "穩重的朋友是你堅實的後盾！" }
+        ]
+      },
+      // 層 14：理想職業
+      {
+        question: "如果你可以選擇一個職業，你會選擇什麼？",
+        options: [
+          { text: "作家", response: "文字能傳達你最深的情感！" },
+          { text: "藝術家", response: "創意讓世界變得更加美好！" },
+          { text: "科學家", response: "探索未知是你永不熄滅的熱情！" }
+        ]
+      },
+      // 層 15：最佳優勢
+      {
+        question: "你認為自己最強的優勢是什麼？",
+        options: [
+          { text: "創意", response: "你的創意無限，總能帶來驚喜！" },
+          { text: "解決問題的能力", response: "你總能迎刃而解各種難題！" },
+          { text: "毅力", response: "堅持到底讓你永不言敗！" }
+        ]
+      },
+      // 層 16：自我認知
+      {
+        question: "你覺得自己是怎樣的人？",
+        options: [
+          { text: "外向開朗", response: "你充滿正能量，感染著身邊的人！" },
+          { text: "內向安靜", response: "你享受獨處，靜靜思考人生！" },
+          { text: "隨和自在", response: "你隨遇而安，生活總是輕鬆自在！" }
+        ]
+      },
+      // 層 17：應對壓力
+      {
+        question: "當壓力來臨時，你會怎麼應對？",
+        options: [
+          { text: "冷靜應對", response: "你總能沉著面對挑戰，這是你的超能力！" },
+          { text: "找人傾訴", response: "分享壓力讓你得到心靈的釋放！" },
+          { text: "逃避", response: "偶爾逃避也是一種調適，但記得最終要面對！" }
+        ]
+      },
+      // 層 18：幸福來源
+      {
+        question: "你認為自己的幸福來自於什麼？",
+        options: [
+          { text: "家庭", response: "家庭的溫暖是你永遠的避風港！" },
+          { text: "事業成功", response: "成就感讓你充滿自信與力量！" },
+          { text: "自由", response: "無拘無束的生活讓你心靈飛翔！" }
+        ]
+      },
+      // 層 19：完美週末
+      {
+        question: "你認為一個完美的週末應該是怎樣的？",
+        options: [
+          { text: "出門旅行", response: "你喜歡探索未知，每次旅行都充滿驚喜！" },
+          { text: "和朋友聚會", response: "朋友的陪伴讓你的週末溫暖又充滿歡笑！" },
+          { text: "宅在家裡", response: "安靜的家裡就是你心靈的港灣！" }
+        ]
+      },
+      // 層 20：大揭密
+      {
+        question: "大揭密！恭喜你完成了整個測驗！點擊下面按鈕查看最終結果。",
+        options: [
+          { 
+            text: "查看結果", 
+            response: "愚人節快樂！🎉 這個測驗沒有結果，因為它根本就不是測驗！你上當了！\n\n<span class='annotation'>在日本玩的開心喲◍˃ᵕ˂◍</span>" 
+          }
+        ]
+      }
+    ];
+
+    let currentLayer = 0;
+
+    const app = document.getElementById("app");
+
+    // 渲染當前層的內容
+    function renderLayer(index) {
+      const layer = layers[index];
+      app.innerHTML = ""; // 清空容器
+
+      // 顯示問題
+      const questionEl = document.createElement("h1");
+      questionEl.textContent = layer.question;
+      app.appendChild(questionEl);
+
+      // 建立選項按鈕
+      const optionsContainer = document.createElement("div");
+      optionsContainer.className = "options";
+
+      layer.options.forEach((option, i) => {
+        const btn = document.createElement("button");
+        btn.className = "option";
+        btn.textContent = option.text;
+        btn.addEventListener("click", () => handleOption(option));
+        optionsContainer.appendChild(btn);
+
+        // 如果是第一層且按鈕文字為「退出」，則加入特殊的逃跑效果
+        if (index === 0 && option.text === "退出") {
+          btn.classList.add("exit");
+          btn.addEventListener("mouseover", () => {
+            // 隨機移動按鈕（在容器內隨機位置）
+            const containerRect = app.getBoundingClientRect();
+            const randomX = Math.random() * (containerRect.width - btn.offsetWidth);
+            const randomY = Math.random() * (containerRect.height - btn.offsetHeight);
+            btn.style.position = "absolute";
+            btn.style.left = randomX + "px";
+            btn.style.top = randomY + "px";
+          });
+        }
+      });
+
+      app.appendChild(optionsContainer);
+    }
+
+    // 處理點擊選項後的邏輯
+    function handleOption(option) {
+      // 顯示該選項的回應文字
+      app.innerHTML = "";
+      const responseEl = document.createElement("p");
+      responseEl.style.marginBottom = "20px";
+      responseEl.innerHTML = option.response;
+      app.appendChild(responseEl);
+
+      // 建立下一步按鈕，無論當前層選項皆會進入下一層
+      const nextBtn = document.createElement("button");
+      nextBtn.className = "option next";
+      nextBtn.textContent = "下一步";
+      nextBtn.addEventListener("click", () => {
+        currentLayer++;
+        if (currentLayer < layers.length) {
+          renderLayer(currentLayer);
+        }
+      });
+      app.appendChild(nextBtn);
+    }
+
+    // 初始化：顯示第一層
+    renderLayer(currentLayer);
+  </script>
+</body>
+</html>
