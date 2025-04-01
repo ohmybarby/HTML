@@ -1,201 +1,159 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>劉罄豪的心理測驗</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap');
-        
         :root {
-            --primary-color: #6a5acd;
-            --secondary-color: #9370db;
-            --accent-color: #ff69b4;
-            --text-color: #333;
-            --background-color: #f9f4ff;
-            --card-bg: #ffffff;
-            --button-bg: linear-gradient(145deg, #9370db, #6a5acd);
-            --button-shadow: 0 8px 15px rgba(106, 90, 205, 0.3);
-            --button-hover: linear-gradient(145deg, #7b68ee, #6a5acd);
-            --exit-button-bg: linear-gradient(145deg, #ff69b4, #ff1493);
-            --exit-shadow: 0 8px 15px rgba(255, 105, 180, 0.4);
+            --primary-color: #ff6b9d;
+            --secondary-color: #5e72e4;
+            --light-color: #f8f9fe;
+            --dark-color: #172b4d;
+            --success-color: #2dce89;
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Noto Sans TC', sans-serif;
         }
         
         body {
-            background: var(--background-color);
-            color: var(--text-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%239C92AC' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
             padding: 20px;
+            color: var(--dark-color);
+            background-attachment: fixed;
         }
         
         .container {
-            max-width: 600px;
             width: 100%;
-            background: var(--card-bg);
+            max-width: 500px;
+            background: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);
+            padding: 30px;
             text-align: center;
             position: relative;
             overflow: hidden;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
         }
         
-        .container::before {
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        
+        .question {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            line-height: 1.5;
+            color: var(--dark-color);
+        }
+        
+        .btn-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .btn {
+            background: linear-gradient(145deg, var(--secondary-color), #5468d4);
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 4px rgba(50, 50, 93, 0.11), 0 1px 2px rgba(0, 0, 0, 0.08);
+        }
+        
+        .btn:before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 10px;
-            background: linear-gradient(90deg, var(--accent-color), var(--primary-color), var(--secondary-color));
-        }
-        
-        h1 {
-            color: var(--primary-color);
-            margin-bottom: 20px;
-            font-size: 2.5rem;
-            font-weight: 700;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-        }
-        
-        .question {
-            font-size: 1.5rem;
-            margin-bottom: 30px;
-            line-height: 1.5;
-            color: var(--text-color);
-            font-weight: 500;
-        }
-        
-        .options {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-        
-        .btn {
-            padding: 15px 25px;
-            border: none;
-            border-radius: 50px;
-            background: var(--button-bg);
-            color: white;
-            font-size: 1.1rem;
-            font-weight: 500;
-            cursor: pointer;
-            box-shadow: var(--button-shadow);
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            text-align: center;
-        }
-        
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: all 0.5s ease;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.2));
+            z-index: -1;
+            transform: translateX(-100%);
+            transition: all 0.3s ease;
         }
         
-        .btn:hover {
-            transform: translateY(-3px);
-            background: var(--button-hover);
-            box-shadow: 0 10px 20px rgba(106, 90, 205, 0.4);
-        }
-        
-        .btn:hover::before {
-            left: 100%;
-        }
-        
-        .btn:active {
-            transform: translateY(0);
-            box-shadow: 0 5px 10px rgba(106, 90, 205, 0.4);
+        .btn:hover:before {
+            transform: translateX(0);
         }
         
         .exit-btn {
-            background: var(--exit-button-bg);
-            box-shadow: var(--exit-shadow);
-            font-weight: 700;
-            font-size: 1.2rem;
-            letter-spacing: 1px;
-            animation: pulse 2s infinite;
+            background: linear-gradient(145deg, #ff4b82, var(--primary-color));
+            font-size: 1.5rem !important;
+            font-weight: 700 !important;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .exit-btn.enlarged {
+            transform: scale(1.1);
+            font-weight: 800 !important;
+            box-shadow: 0 6px 12px rgba(255, 107, 157, 0.3), 0 3px 6px rgba(0, 0, 0, 0.2);
+            animation: pulse 1.5s infinite;
         }
         
         @keyframes pulse {
             0% {
-                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(255, 107, 157, 0.7);
             }
-            50% {
-                transform: scale(1.05);
+            70% {
+                box-shadow: 0 0 0 10px rgba(255, 107, 157, 0);
             }
             100% {
-                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(255, 107, 157, 0);
             }
         }
         
         .result {
-            font-size: 1.2rem;
-            line-height: 1.6;
-            padding: 20px;
-            background-color: rgba(147, 112, 219, 0.1);
-            border-radius: 10px;
             margin-top: 20px;
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
-        
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .continue-btn {
-            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fe;
+            border-radius: 12px;
+            border-left: 4px solid var(--success-color);
             display: none;
             animation: fadeIn 0.5s ease;
         }
         
         .final-result {
-            font-size: 2rem;
+            font-size: 1.6rem;
             font-weight: 700;
-            color: var(--accent-color);
-            margin-bottom: 20px;
-            animation: bounce 1s infinite alternate;
-        }
-        
-        @keyframes bounce {
-            from {
-                transform: translateY(0);
-            }
-            to {
-                transform: translateY(-10px);
-            }
-        }
-        
-        .subtitle {
-            font-size: 1rem;
             color: var(--primary-color);
             margin-top: 20px;
+            animation: tada 1s ease;
+        }
+        
+        .small-text {
+            font-size: 0.9rem;
+            color: #888;
+            margin-top: 15px;
         }
         
         .confetti {
@@ -203,31 +161,117 @@
             width: 10px;
             height: 10px;
             background-color: #f00;
-            opacity: 0;
+            border-radius: 50%;
+            animation: fall 5s linear forwards;
+        }
+        
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(1000px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes tada {
+            0% {
+                transform: scale3d(1, 1, 1);
+            }
+            10%, 20% {
+                transform: scale3d(0.9, 0.9, 0.9) rotate3d(0, 0, 1, -3deg);
+            }
+            30%, 50%, 70%, 90% {
+                transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+            }
+            40%, 60%, 80% {
+                transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+            }
+            100% {
+                transform: scale3d(1, 1, 1);
+            }
+        }
+        
+        /* 背景裝飾 */
+        .decoration {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(94, 114, 228, 0.2), rgba(255, 107, 157, 0.2));
+            filter: blur(40px);
+            z-index: -1;
+            animation: float 10s ease-in-out infinite;
+        }
+        
+        .decoration:nth-child(1) {
+            top: -150px;
+            left: -150px;
+        }
+        
+        .decoration:nth-child(2) {
+            bottom: -150px;
+            right: -150px;
+            animation-delay: 5s;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translate(0px, 0px);
+            }
+            50% {
+                transform: translate(20px, 20px);
+            }
+            100% {
+                transform: translate(0px, 0px);
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="decoration"></div>
+    <div class="decoration"></div>
+    
+    <div class="container" id="question-container">
         <h1>劉罄豪的心理測驗</h1>
-        <div id="quiz-container">
-            <!-- Content will be dynamically loaded here -->
+        <div id="question-text" class="question">準備好進行這個有趣的心理測驗了嗎？但…你可以選擇退出哦！</div>
+        
+        <div class="btn-container" id="options-container">
+            <button class="btn" onclick="nextLevel('start')">開始測驗</button>
+            <button class="btn exit-btn enlarged" id="exit-btn" onclick="moveExitButton()">退出</button>
         </div>
+        
+        <div id="result" class="result"></div>
     </div>
-
+    
     <script>
-        // Define all quiz layers
-        const quizLayers = [
-            // Layer 1
+        let currentLevel = 1;
+        const exitBtn = document.getElementById('exit-btn');
+        
+        // 所有測驗層級資料
+        const levels = [
             {
+                level: 1,
                 question: "準備好進行這個有趣的心理測驗了嗎？但…你可以選擇退出哦！",
                 options: [
-                    { text: "開始測驗", result: "" },
-                    { text: "退出", result: "", isExit: true }
+                    { text: "開始測驗", result: "" }
                 ]
             },
-            // Layer 2
             {
+                level: 2,
                 question: "你覺得自己有多大年紀？",
                 options: [
                     { text: "10歲", result: "你還是個永遠保持活力的小孩！當然，人生的目標就是玩樂！" },
@@ -235,8 +279,8 @@
                     { text: "100歲", result: "你是一位智慧的長者，總是充滿深刻的見解！但別忘了，你也可以開心的玩弄那些智能設備。" }
                 ]
             },
-            // Layer 3
             {
+                level: 3,
                 question: "如果你能選擇理想的假期，你會選擇去哪裡？",
                 options: [
                     { text: "海灘上放鬆", result: "你選擇海灘，是時候放鬆了，讓海風告訴你'放下'。" },
@@ -244,8 +288,8 @@
                     { text: "家裡放鬆", result: "你選擇了在家放鬆，這就是生活的真諦！終於不需要再面對行李！" }
                 ]
             },
-            // Layer 4
             {
+                level: 4,
                 question: "如果你必須面對一個恐懼，你會選擇什麼？",
                 options: [
                     { text: "黑暗", result: "黑暗是心靈的試煉，但你總能找到隱藏在黑暗中的亮光。" },
@@ -253,8 +297,8 @@
                     { text: "無聊的等待", result: "你面對的是最無聊的挑戰—但嘿，這樣的時光很適合拿來發呆！" }
                 ]
             },
-            // Layer 5
             {
+                level: 5,
                 question: "你今天的心情是哪種顏色？",
                 options: [
                     { text: "紅色", result: "你充滿熱情，像一顆火紅的心！" },
@@ -262,8 +306,8 @@
                     { text: "綠色", result: "你充滿希望和生命力，像森林一樣繁榮。" }
                 ]
             },
-            // Layer 6
             {
+                level: 6,
                 question: "如果你擁有一個超能力，你會選擇哪一個？",
                 options: [
                     { text: "心靈感應", result: "你能讀懂他人心思！但這樣也有點累人吧？" },
@@ -271,8 +315,8 @@
                     { text: "讓所有人安靜", result: "你想要安靜的世界，但或許那樣會讓你錯過很多笑聲！" }
                 ]
             },
-            // Layer 7
             {
+                level: 7,
                 question: "如果你有一個秘密力量，你會選擇哪一個？",
                 options: [
                     { text: "說話能讓所有人發笑", result: "你的秘密力量能讓每個人都開心，但有時候你自己也會笑到不行！" },
@@ -280,8 +324,8 @@
                     { text: "變成透明", result: "透明無聲，讓你無法被察覺，但或許你也會變得有點孤獨。" }
                 ]
             },
-            // Layer 8
             {
+                level: 8,
                 question: "你最想要的生活方式是？",
                 options: [
                     { text: "安靜的田園生活", result: "你選擇了田園生活，這樣的平靜令人心動。" },
@@ -289,8 +333,8 @@
                     { text: "終於能在家睡覺", result: "你選擇的是睡眠生活！每一秒鐘都值得休息。" }
                 ]
             },
-            // Layer 9
             {
+                level: 9,
                 question: "你最喜歡的食物是？",
                 options: [
                     { text: "披薩", result: "你選擇披薩，這讓你滿足！不過，你可能該考慮健康飲食。" },
@@ -298,8 +342,8 @@
                     { text: "蔬菜", result: "你的選擇是蔬菜，顯示出你對健康的熱愛。" }
                 ]
             },
-            // Layer 10
             {
+                level: 10,
                 question: "你希望未來的自己是怎樣的？",
                 options: [
                     { text: "事業成功", result: "你想要事業成功，但有時候放鬆也同樣重要。" },
@@ -307,8 +351,8 @@
                     { text: "無憂無慮", result: "你追求的是無憂無慮的生活，簡單而快樂。" }
                 ]
             },
-            // Layer 11
             {
+                level: 11,
                 question: "如果你可以消除一個恐懼，你會選擇哪一個？",
                 options: [
                     { text: "害怕失敗", result: "如果失敗不再可怕，那麼成功就會變得更容易。" },
@@ -316,8 +360,8 @@
                     { text: "害怕改變", result: "改變是成長的必經之路，勇敢面對！" }
                 ]
             },
-            // Layer 12
             {
+                level: 12,
                 question: "如果你面對無盡的恐懼，你會如何反應？",
                 options: [
                     { text: "面對並克服", result: "你選擇面對，這樣的勇氣是你成長的動力。" },
@@ -325,8 +369,8 @@
                     { text: "接受並放下", result: "接受並放下是一種智慧，讓你的心變得更平靜。" }
                 ]
             },
-            // Layer 13
             {
+                level: 13,
                 question: "你的理想朋友是什麼樣的？",
                 options: [
                     { text: "善解人意", result: "你選擇了一個善解人意的朋友，因為你相信友誼的力量。" },
@@ -334,8 +378,8 @@
                     { text: "穩重可靠", result: "你需要一個穩重可靠的朋友，這樣你可以放心的傾訴。" }
                 ]
             },
-            // Layer 14
             {
+                level: 14,
                 question: "如果你可以選擇一個職業，你會選擇什麼？",
                 options: [
                     { text: "作家", result: "你選擇了作家，因為你喜歡把思想變成文字。" },
@@ -343,8 +387,8 @@
                     { text: "科學家", result: "你選擇了科學家，因為你對探索宇宙充滿熱情。" }
                 ]
             },
-            // Layer 15
             {
+                level: 15,
                 question: "你認為自己最強的優勢是？",
                 options: [
                     { text: "創意", result: "你的創意無限，世界因你而不同。" },
@@ -352,8 +396,8 @@
                     { text: "毅力", result: "你永不放棄，堅韌不拔！這是你成功的法寶。" }
                 ]
             },
-            // Layer 16
             {
+                level: 16,
                 question: "你覺得自己是怎樣的人？",
                 options: [
                     { text: "外向開朗", result: "你總是充滿活力，感染著周圍的人。" },
@@ -361,8 +405,8 @@
                     { text: "隨和自在", result: "你與世無爭，輕鬆過日子。" }
                 ]
             },
-            // Layer 17
             {
+                level: 17,
                 question: "當壓力來臨時，你會怎麼應對？",
                 options: [
                     { text: "冷靜應對", result: "你總是能冷靜面對壓力，這是你的超能力！" },
@@ -370,8 +414,8 @@
                     { text: "逃避", result: "有時候逃避是解壓的好辦法，但最終你還是會面對。" }
                 ]
             },
-            // Layer 18
             {
+                level: 18,
                 question: "你認為自己的幸福來自於什麼？",
                 options: [
                     { text: "家庭", result: "家是你最大的避風港，你在其中找到平靜。" },
@@ -379,8 +423,8 @@
                     { text: "自由", result: "自由是你的靈魂所需，無拘無束。" }
                 ]
             },
-            // Layer 19
             {
+                level: 19,
                 question: "你認為一個完美的週末應該是怎樣的？",
                 options: [
                     { text: "出門旅行", result: "你喜歡探索新地方，每次旅行都能收穫滿滿。" },
@@ -388,161 +432,125 @@
                     { text: "宅在家裡", result: "有時候最好的週末就是待在家裡放鬆。" }
                 ]
             },
-            // Layer 20
             {
+                level: 20,
                 question: "恭喜你完成了這個測驗！你已經深入了解自己所有的心情與需求！",
                 options: [
-                    { text: "按此查看結果", result: "愚人節快樂！🎉 這個測驗沒有結果，因為它根本就不是測驗！你上當了！", isFinal: true }
+                    { text: "按此查看結果", result: "final" }
                 ]
             }
         ];
-
-        let currentLayer = 0;
-
-        // Initialize quiz
-        function initializeQuiz() {
-            showLayer(currentLayer);
+        
+        function moveExitButton() {
+            const maxX = window.innerWidth - exitBtn.offsetWidth - 40;
+            const maxY = window.innerHeight - exitBtn.offsetHeight - 40;
+            
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+            
+            exitBtn.style.position = 'fixed';
+            exitBtn.style.left = randomX + 'px';
+            exitBtn.style.top = randomY + 'px';
+            exitBtn.style.zIndex = '9999';
         }
-
-        // Show a specific layer
-        function showLayer(layerIndex) {
-            const quizContainer = document.getElementById('quiz-container');
-            const layer = quizLayers[layerIndex];
-            
-            let html = `<div class="question">${layer.question}</div>`;
-            html += `<div class="options">`;
-            
-            layer.options.forEach((option, index) => {
-                const btnClass = option.isExit ? 'btn exit-btn' : 'btn';
-                html += `<button class="${btnClass}" data-index="${index}">${option.text}</button>`;
-            });
-            
-            html += `</div>`;
-            html += `<div class="result" id="result"></div>`;
-            html += `<button class="btn continue-btn" id="continue-btn">繼續</button>`;
-            
-            quizContainer.innerHTML = html;
-            
-            // Add event listeners
-            const optionButtons = document.querySelectorAll('.options .btn');
-            optionButtons.forEach(button => {
-                button.addEventListener('click', handleOptionClick);
-            });
-            
-            document.getElementById('continue-btn').addEventListener('click', () => {
-                currentLayer++;
-                showLayer(currentLayer);
-            });
-
-            // Special handling for exit button
-            const exitBtn = document.querySelector('.exit-btn');
-            if (exitBtn) {
-                let clickCount = 0;
-                exitBtn.addEventListener('mouseover', function(e) {
-                    if (clickCount < 5) {
-                        const x = Math.random() * (window.innerWidth - 200);
-                        const y = Math.random() * (window.innerHeight - 100);
-                        
-                        this.style.position = 'absolute';
-                        this.style.left = `${x}px`;
-                        this.style.top = `${y}px`;
-                        
-                        clickCount++;
-                    }
-                });
+        
+        function nextLevel(option) {
+            // 如果當前是第一層且選擇了開始測驗
+            if (currentLevel === 1 && option === 'start') {
+                currentLevel++;
+                updateQuestion();
+                // 移除退出按鈕
+                if (document.getElementById('exit-btn')) {
+                    document.getElementById('exit-btn').remove();
+                }
+                return;
             }
-        }
-
-        // Handle option click
-        function handleOptionClick(e) {
-            const optionIndex = parseInt(e.target.dataset.index);
-            const option = quizLayers[currentLayer].options[optionIndex];
             
-            // Display result if available
-            if (option.result) {
-                const resultElement = document.getElementById('result');
-                resultElement.textContent = option.result;
-                resultElement.style.display = 'block';
-                
-                // Show continue button
-                const continueBtn = document.getElementById('continue-btn');
-                continueBtn.style.display = 'inline-block';
-                
-                // Disable option buttons
-                const optionButtons = document.querySelectorAll('.options .btn');
-                optionButtons.forEach(button => {
-                    button.disabled = true;
-                    button.style.opacity = '0.7';
-                });
-                
-                // If this is the final layer
-                if (option.isFinal) {
+            const currentLevelData = levels.find(l => l.level === currentLevel);
+            const selectedOption = currentLevelData.options.find(o => o.text === option);
+            
+            if (selectedOption) {
+                // 如果是最後一層且點擊了查看結果
+                if (currentLevel === 20 && selectedOption.result === "final") {
                     showFinalResult();
+                    return;
                 }
-            } else {
-                // If no result (like in layer 1), just go to next layer
-                currentLayer++;
-                showLayer(currentLayer);
+                
+                // 顯示選項結果
+                const resultDiv = document.getElementById('result');
+                resultDiv.style.display = 'block';
+                resultDiv.textContent = selectedOption.result;
+                
+                // 0.5秒後進入下一層
+                setTimeout(() => {
+                    currentLevel++;
+                    updateQuestion();
+                    resultDiv.style.display = 'none';
+                }, 1500);
             }
         }
-
-        // Show final result with animation
+        
+        function updateQuestion() {
+            const levelData = levels.find(l => l.level === currentLevel);
+            document.getElementById('question-text').textContent = levelData.question;
+            
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+            
+            levelData.options.forEach(option => {
+                const btn = document.createElement('button');
+                btn.className = 'btn';
+                btn.textContent = option.text;
+                btn.onclick = () => nextLevel(option.text);
+                optionsContainer.appendChild(btn);
+            });
+        }
+        
         function showFinalResult() {
-            const quizContainer = document.getElementById('quiz-container');
-            
-            // Clear the container
-            quizContainer.innerHTML = `
-                <div class="final-result">愚人節快樂！你被愚弄了！</div>
-                <p>這個測驗沒有結果，因為它根本就不是測驗！你上當了！🎉</p>
-                <p class="subtitle">在日本玩的開心喲◍˃ᵕ˂◍</p>
+            const container = document.getElementById('question-container');
+            container.innerHTML = `
+                <h1>測驗結果</h1>
+                <div class="final-result">愚人節快樂！🎉</div>
+                <div class="question">這個測驗沒有結果，因為它根本就不是測驗！你上當了！</div>
+                <div class="small-text">在日本玩的開心喲◍˃ᵕ˂◍</div>
             `;
             
-            // Create confetti effect
-            createConfetti();
-        }
-
-        // Create confetti effect
-        function createConfetti() {
-            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
-            
-            for (let i = 0; i < 100; i++) {
-                const confetti = document.createElement('div');
-                confetti.className = 'confetti';
-                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                confetti.style.left = `${Math.random() * 100}%`;
-                confetti.style.top = '-10px';
-                confetti.style.width = `${Math.random() * 10 + 5}px`;
-                confetti.style.height = `${Math.random() * 10 + 5}px`;
-                confetti.style.opacity = '1';
-                confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
-                
-                document.body.appendChild(confetti);
-                
-                const animationDuration = Math.random() * 3 + 2;
-                const animationDelay = Math.random() * 5;
-                
-                confetti.style.animation = `fall ${animationDuration}s ease-in ${animationDelay}s forwards`;
+            // 添加五彩紙屑效果
+            for (let i = 0; i < 50; i++) {
+                createConfetti();
             }
-            
-            // Add the animation
-            const style = document.createElement('style');
-            style.innerHTML = `
-                @keyframes fall {
-                    0% {
-                        transform: translateY(0) rotate(0deg);
-                        opacity: 1;
-                    }
-                    100% {
-                        transform: translateY(${window.innerHeight}px) rotate(720deg);
-                        opacity: 0;
-                    }
-                }
-            `;
-            document.head.appendChild(style);
         }
-
-        // Start the quiz
-        document.addEventListener('DOMContentLoaded', initializeQuiz);
+        
+        function createConfetti() {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            
+            // 隨機顏色
+            const colors = ['#ff4b82', '#5e72e4', '#2dce89', '#ffd600', '#11cdef'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.backgroundColor = randomColor;
+            
+            // 隨機大小
+            const size = Math.random() * 8 + 6;
+            confetti.style.width = `${size}px`;
+            confetti.style.height = `${size}px`;
+            
+            // 隨機位置
+            const startPosX = Math.random() * window.innerWidth;
+            confetti.style.left = `${startPosX}px`;
+            confetti.style.top = '-20px';
+            
+            // 隨機動畫持續時間
+            const duration = Math.random() * 3 + 2;
+            confetti.style.animationDuration = `${duration}s`;
+            
+            document.body.appendChild(confetti);
+            
+            // 動畫結束後移除元素
+            setTimeout(() => {
+                confetti.remove();
+            }, duration * 1000);
+        }
     </script>
 </body>
 </html>
